@@ -1,0 +1,4 @@
+Model,Accuracy,Precision,Recall,F1-Score,AUC
+LSTM-Attention,0.821,0.535,0.759,0.628,0.878
+BERT-base,0.913,0.762,0.819,0.789,0.961
+Graph-RoBERTa-CL,0.995,1.000,0.975,0.987,1.000
