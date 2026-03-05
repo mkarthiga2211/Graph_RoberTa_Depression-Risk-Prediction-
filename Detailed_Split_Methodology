@@ -1,0 +1,24 @@
+from sklearn.model_selection import train_test_split
+
+# Step 1: Initial split (train vs. temp)
+train_data, temp_data, train_labels, temp_labels = train_test_split(
+    balanced_data, 
+    labels, 
+    test_size=0.30,  # 30% for val+test
+    random_state=42,
+    stratify=labels  # Preserve class balance
+)
+
+# Step 2: Split temp into validation and test
+val_data, test_data, val_labels, test_labels = train_test_split(
+    temp_data,
+    temp_labels,
+    test_size=0.50,  # 50% of 30% = 15% each
+    random_state=42,
+    stratify=temp_labels
+)
+
+# Final split sizes:
+# Train: 162,452 posts (70%)
+# Validation: 34,811 posts (15%)
+# Test: 34,811 posts (15%)
