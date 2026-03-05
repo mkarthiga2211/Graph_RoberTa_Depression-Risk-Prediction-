@@ -1,0 +1,15 @@
+# Graph construction specifications
+graph_config = {
+    "similarity_metric": "cosine",
+    "threshold": 0.75,
+    "normalize_embeddings": True,  # L2 normalization before similarity
+    "construction_mode": "per_split",  # Train/val/test graphs independent
+    "edge_weighting": False,  # Binary edges (connected or not)
+    "self_loops": False,
+    "graph_library": "PyTorch Geometric 2.1.0"
+}
+
+# Example edge density statistics:
+# Training graph: ~15-20% edge density (sparse)
+# Validation graph: ~15-20% edge density
+# Test graph: ~15-20% edge density
