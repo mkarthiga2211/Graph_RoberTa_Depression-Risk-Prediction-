@@ -1,0 +1,39 @@
+# Training configuration
+for epoch in range(max_epochs=50):
+    model.train()
+    for batch in train_loader:
+        # 1. Semantic encoding
+        embeddings = roberta_encoder(batch.text)  # [batch_size, 768]
+        
+        # 2. Graph construction (batch-level)
+        similarity_matrix = cosine_similarity(embeddings)
+        adj_matrix = (similarity_matrix > threshold).float()
+        
+        # 3. Graph attention aggregation
+        graph_embeddings = gat_network(embeddings, adj_matrix)  # [batch_size, 768]
+        
+        # 4. Classification
+        logits = classifier(graph_embeddings)  # [batch_size, 1]
+        predictions = sigmoid(logits)
+        
+        # 5. Compute losses
+        ce_loss = binary_cross_entropy(predictions, batch.labels)
+        scl_loss = supervised_contrastive_loss(graph_embeddings, batch.labels, 
+                                                temperature=0.07)
+        total_loss = lambda * scl_loss + (1 - lambda) * ce_loss
+        
+        # 6. Optimization
+        total_loss.backward()
+        optimizer.step()
+        optimizer.zero_grad()
+    
+    # Validation
+    val_loss = validate(model, val_loader)
+    if val_loss < best_val_loss:
+        best_val_loss = val_loss
+        save_checkpoint(model)
+        patience_counter = 0
+    else:
+        patience_counter += 1
+        if patience_counter >= early_stopping_patience:
+            break
