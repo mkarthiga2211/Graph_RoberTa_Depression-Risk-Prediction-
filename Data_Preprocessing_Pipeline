@@ -1,0 +1,22 @@
+# Preprocessing specifications
+preprocessing_config = {
+    "text_normalization": {
+        "lowercase": True,
+        "url_replacement": "[URL]",
+        "mention_replacement": "[USER]",
+        "emoji_conversion": True,  # Using emoji library
+        "remove_special_chars": False,  # Preserve punctuation
+        "whitespace_normalization": True
+    },
+    "tokenization": {
+        "tokenizer": "roberta-base",
+        "max_length": 128,
+        "padding": "max_length",
+        "truncation": True,
+        "add_special_tokens": True
+    },
+    "duplicate_removal": {
+        "method": "exact_match",
+        "case_sensitive": False
+    }
+}
