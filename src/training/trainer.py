@@ -12,6 +12,10 @@ This module manages:
 import torch
 from torch.utils.data import DataLoader
 
+train_indices = np.load('data/splits/train_indices_stage2.npy')
+val_indices = np.load('data/splits/val_indices_stage2.npy')
+test_indices = np.load('data/splits/test_indices_stage2.npy')
+
 class Trainer:
     """
     Handles the training lifecycle for Graph-RoBERTa-CL.
